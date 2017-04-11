@@ -67,14 +67,24 @@ function unsafeGet(idx, arr) {
 }
 
 function unsafeSet(idx, val, arr) {
-    var result = arr.slice();
+    // http://jsperf.com/copy-array-inline
+    var len = arr.length;
+    var result = new Array(len);
+    for (var i = 0; i < len; i++) {
+        result[i] = arr[i]
+    }
     result[idx] = val;
     return result;
 }
 
 function push(val, arr) {
-    var result = arr.slice();
-    result.push(val);
+    // http://jsperf.com/copy-array-inline
+    var len = arr.length;
+    var result = new Array(len + 1);
+    for (var i = 0; i < len; i++) {
+        result[i] = arr[i]
+    }
+    result[len] = val;
     return result;
 }
 
